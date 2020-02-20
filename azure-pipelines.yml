@@ -10,9 +10,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  buildConfiguration:'Release'
+  buildConfiguration: 'Release'
 
 steps:
   - script: donet build -configuration $(buildConfiguration)
     displayName: 'donet build $(buildConfiguration)'
-    
