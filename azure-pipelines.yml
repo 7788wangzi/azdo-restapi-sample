@@ -8,8 +8,6 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-  demands:
-  - npm
 
 variables:
   buildConfiguration: 'Release'
@@ -21,11 +19,6 @@ steps:
       packageType: sdk
       version: 3.1.100
   
-  - task: Npm@1
-    displayName: 'Run npm install'
-    inputs:
-      verbose: false
-
   - task: DotNetCoreCLI@2
     displayName: 'Restore project dependencies'
     inputs:
