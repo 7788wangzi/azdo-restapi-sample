@@ -29,5 +29,26 @@ namespace helloLearn.Business
             string fileFullPath = Path.Combine(path, fileName + ".md");
             File.Create(fileFullPath).Close();
         }
+
+        public DirectoryInfo CreateFolder(string path="", string folderName="")
+        {
+            if (string.IsNullOrEmpty(path))
+                path = Directory.GetCurrentDirectory();
+            string folderFullPath = Path.Combine(path, folderName);
+
+            //If already exist, then delete first
+            if (Directory.Exists(folderFullPath))
+                Directory.Delete(folderFullPath, true);
+            return Directory.CreateDirectory(folderFullPath);
+        }
+
+        public void WriteLog(string fileName, string message)
+        {
+            using(StreamWriter writer = new StreamWriter(fileName))
+            {
+                writer.Write(message);
+                writer.Flush();
+            }
+        }
     }
 }

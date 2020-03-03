@@ -1,0 +1,12 @@
+C:\Files\helloLearn\helloLearn\bin\Debug\netcoreapp3.1\Config\config.json
+C:\Files\helloLearn\helloLearn\bin\Debug\netcoreapp3.1\helloLearn.exe
+C:\Files\helloLearn\helloLearn\bin\Debug\netcoreapp3.1\helloLearn.deps.json
+C:\Files\helloLearn\helloLearn\bin\Debug\netcoreapp3.1\helloLearn.runtimeconfig.json
+C:\Files\helloLearn\helloLearn\bin\Debug\netcoreapp3.1\helloLearn.runtimeconfig.dev.json
+C:\Files\helloLearn\helloLearn\bin\Debug\netcoreapp3.1\helloLearn.dll
+C:\Files\helloLearn\helloLearn\bin\Debug\netcoreapp3.1\helloLearn.pdb
+C:\Files\helloLearn\helloLearn\obj\Debug\netcoreapp3.1\helloLearn.csprojAssemblyReference.cache
+C:\Files\helloLearn\helloLearn\obj\Debug\netcoreapp3.1\helloLearn.AssemblyInfoInputs.cache
+C:\Files\helloLearn\helloLearn\obj\Debug\netcoreapp3.1\helloLearn.AssemblyInfo.cs
+C:\Files\helloLearn\helloLearn\obj\Debug\netcoreapp3.1\helloLearn.dll
+C:\Files\helloLearn\helloLearn\obj\Debug\netcoreapp3.1\helloLearn.pdb

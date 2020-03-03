@@ -52,6 +52,9 @@ namespace helloLearn.Common
             {
                 outputStr = inputStr.Trim().ToLower();
             }
+
+            //Remove special characters
+            outputStr = outputStr.Replace(@"/","").Replace(@"\","");
         }
 
         public string GetLCS(string str1, string str2)
