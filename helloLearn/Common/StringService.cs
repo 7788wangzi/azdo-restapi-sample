@@ -53,5 +53,33 @@ namespace helloLearn.Common
                 outputStr = inputStr.Trim().ToLower();
             }
         }
+
+        public string GetLCS(string str1, string str2)
+        {
+            int lastN = 0;
+            string lcs = string.Empty;
+            for(int i=0; i<str1.Length; i++)
+            {
+                for(int j=0; j<str2.Length; j++)
+                {
+                    if(str1[i]==str2[j])
+                    {
+                        int n = 1;
+                        while ((i+n)<str1.Length&&(j+n)<str2.Length&&(str1[i + n] == str2[j + n]))
+                            n++;
+                        if (n >= lastN)
+                        {
+                            lastN = n;
+                            //Console.WriteLine("n: "+n+"i: "+i+" ; j: "+j);
+                            
+                            lcs = str1.Substring(i, n);
+                            //Console.WriteLine(lcs);
+                        }
+                    }
+                }
+            }
+
+            return lcs;
+        }
     }
 }

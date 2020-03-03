@@ -37,7 +37,7 @@ namespace UnitTestHelloLearn
         public void TestRemoveSmallWords()
         {
             string inputString = "get a few likes in their WeChat Moments";
-            string expectedString = "get-few-likes-their-wechat-moments";
+            string expectedString = "get-few-likes-their-WeChat-Moments";
             List<string> smallwords = new List<string>() {"in","a","the","and","an" };
 
             string actualResult = string.Empty;
@@ -45,6 +45,20 @@ namespace UnitTestHelloLearn
             targetClass.RemoveSmallWords(inputString, out actualResult,smallwords);
 
             Assert.AreEqual<string>(expectedString, actualResult);
+        }
+
+        [TestMethod]
+        public void TestGetLCS()
+        {
+            string str1 = "analyze-devops-continuous-planning-intergration";
+            string str2 = "2-explore-continuous-planning";
+            string expectedLCS = "-continuous-planning";
+
+            string actualResult = string.Empty;
+            StringService targetClass = new StringService();
+            actualResult = targetClass.GetLCS(str1, str2);
+
+            Assert.AreEqual<string>(expectedLCS, actualResult);
         }
     }
 }
