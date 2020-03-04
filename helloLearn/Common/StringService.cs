@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace helloLearn.Common
 {
@@ -52,9 +53,15 @@ namespace helloLearn.Common
             {
                 outputStr = inputStr.Trim().ToLower();
             }
+        }
 
-            //Remove special characters
-            outputStr = outputStr.Replace(@"/","").Replace(@"\","");
+        public void ReplaceInvalidCharactersInFileName(string inputStr, out string outputStr)
+        {
+            outputStr = string.Empty;
+            if(!string.IsNullOrEmpty(inputStr))
+            {
+                outputStr=Regex.Replace(inputStr, "[\\\\/:*?\"<>|]", "");
+            }
         }
 
         public string GetLCS(string str1, string str2)
@@ -84,5 +91,44 @@ namespace helloLearn.Common
 
             return lcs;
         }
+
+
+        public string GetLCSWords(string str1, string str2)
+        {
+            var words1 = str1.ToLower().Split(new string[] { "-", " " }, StringSplitOptions.RemoveEmptyEntries);
+            var words2 = str2.ToLower().Split(new string[] { "-", " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            int lastN = 0;
+            StringBuilder lcsWord = new StringBuilder();
+            for (int i = 0; i < words1.Length; i++)
+            {
+                for (int j = 0; j < words2.Length; j++)
+                {
+                    if (words1[i] == words2[j])
+                    {
+                        int n = 1;
+                        while ((i + n) < words1.Length && (j + n) < words2.Length && (words1[i + n] == words2[j + n]))
+                            n++;
+                        if (n >= lastN)
+                        {
+                            lcsWord = new StringBuilder();
+                            lastN = n;
+                            int s = i;
+                            int c = 0;
+                            while (c < n)
+                            {
+                                lcsWord.Append(words1[s]);
+                                lcsWord.Append("-");
+                                c++;
+                                s += c;
+                            }
+                        }
+                    }
+                }
+            }
+            return lcsWord.ToString().TrimEnd('-');
+        }
+
+
     }
 }

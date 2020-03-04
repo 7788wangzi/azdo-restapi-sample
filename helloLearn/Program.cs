@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace helloLearn
 {
@@ -6,10 +7,36 @@ namespace helloLearn
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Business.ModuleHandler myModule = new Business.ModuleHandler("Manage enterprise security in HDInsight", "Introduction", "Describe HDInsight security areas", "Implement Network security", "Understand operating system security", "Manage application/ middleware security");
-            myModule.GenerateModule();
-            Console.ReadKey();
+            //Console.WriteLine("Hello World!");
+            //Business.ModuleHandler myModule = new Business.ModuleHandler("Manage enterprise security in HDInsight", "Introduction", "Describe HDInsight security areas", "Implement Network security", "Understand operating system security", "Manage application/ middleware security", "Enterprise security further explore");
+            //myModule.GenerateModule();
+
+            Console.WriteLine("Program started...");
+            using (StreamReader reader = new StreamReader("input.txt"))
+            {
+                string content = reader.ReadToEnd();
+                Console.WriteLine("Read titles from input.txt successfully...");
+                var parameters = content.Split(new string[] { "\r\n" },StringSplitOptions.RemoveEmptyEntries);
+                string[] unitParameters = new string[parameters.Length-1];
+                for(int i=1; i<parameters.Length; i++)
+                {
+                    unitParameters[i - 1] = parameters[i];
+                }
+                Console.WriteLine("Parse titles successfully...");
+                try
+                {
+                    Business.ModuleHandler myModule = new Business.ModuleHandler(parameters[0], unitParameters);
+                    myModule.GenerateModule();
+                    Console.WriteLine("Generate module TOC successfully.");
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("Error:");
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            Console.WriteLine("Press any key to exit.");
+                Console.ReadKey();
         }
     }
 }

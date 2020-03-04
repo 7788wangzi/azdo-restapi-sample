@@ -1,0 +1,3 @@
+﻿Manage enterprise security in HDInsight
+Introduction
+Describe HDInsight security areas

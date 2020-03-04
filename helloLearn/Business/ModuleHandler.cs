@@ -42,6 +42,11 @@ namespace helloLearn.Business
                     foreach (var unit in ThisModule.Units)
                     {
                         var fileName = myFileHandler.ProcessFileNames(unit.Title);
+
+                        //Remove reduandency from the path ThisModule.ModuleFolder & fileName
+                        fileName = myFileHandler.RemoveRedundancyFromPath(ThisModule.ModuleFolder, fileName);
+
+                        unit.Title = prefix + "-" + unit.Title;
                         unit.FileName = prefix + "-" + fileName;
                         unit.UID = fileName;
                         prefix++;
@@ -49,19 +54,38 @@ namespace helloLearn.Business
                 }
 
                 //Create files
-                StringBuilder moduleTOC = new StringBuilder();
-                moduleTOC.AppendLine("Module UID: " + ThisModule.UID);
-                moduleTOC.AppendLine("Units: ");
                 IOCls myIO = new IOCls();
                 var folderDir = myIO.CreateFolder(folderName: ThisModule.ModuleFolder);
+                //Create includes folder
                 var targetPath = myIO.CreateFolder(folderDir.FullName, "includes");
                 foreach (var unit in ThisModule.Units)
                 {                    
                     myIO.CreateNewFile(targetPath.FullName, unit.FileName);
-                    moduleTOC.AppendLine(unit.UID);
                 }
 
-                myIO.WriteLog(folderDir + "\\log.txt", moduleTOC.ToString());
+                var jsonMessage = myIO.SerializeModule(ThisModule);
+                myIO.WriteLog(folderDir + "\\log.json", jsonMessage);
+
+                //Create media folder
+                var mediaPath = myIO.CreateFolder(folderDir.FullName, "media");
+                myIO.CreateNewFile(mediaPath.FullName, "placeholder");
+
+                //Create badge folder
+                var badgePath = myIO.CreateFolder(folderDir.FullName, "badge");
+                myIO.CreateNewFile(badgePath.FullName, "placeholder");
+
+                //Create Compliance_Results folder
+                var complianceFolder = myIO.CreateFolder(folderDir.FullName, "Compliance_Results");
+                myIO.CreateNewFile(complianceFolder.FullName, "placeholder");
+
+                //Create Video_CC folder
+                var videoCCFolder = myIO.CreateFolder(folderDir.FullName, "Video_CC");
+                myIO.CreateNewFile(videoCCFolder.FullName, "placeholder");
+
+                //Create metadata file
+                var metadataString = myIO.GetMetadataString();
+                metadataString = String.Format(metadataString, "", ThisModule.ModuleFolder);
+                myIO.WriteLog(folderDir + "\\Metadata.md", metadataString);
             }
         }
     }

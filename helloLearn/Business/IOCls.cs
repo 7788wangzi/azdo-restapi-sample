@@ -5,6 +5,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using helloLearn.Common;
+using helloLearn.Learn;
 
 namespace helloLearn.Business
 {
@@ -22,6 +23,16 @@ namespace helloLearn.Business
             }
 
             return null;
+        }
+
+        public string GetMetadataString()
+        {
+            using(StreamReader reader = new StreamReader("./Config/metadata.md"))
+            {
+                var metadataString = reader.ReadToEnd();
+
+                return metadataString;
+            }
         }
 
         public void CreateNewFile(string path, string fileName)
@@ -49,6 +60,17 @@ namespace helloLearn.Business
                 writer.Write(message);
                 writer.Flush();
             }
+        }
+
+        public string SerializeModule(Module thisModule)
+        {
+            if (thisModule != null)
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions();
+                options.WriteIndented = true;
+                return JsonSerializer.Serialize<Module>(thisModule,options);
+            }
+            return null;
         }
     }
 }

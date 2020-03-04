@@ -16,6 +16,8 @@ namespace helloLearn.Business
 
             //Lower case the file name
             strService.ConvertToLowerCase(fileName, out result);
+            //Remove invalid characters for filename
+            strService.ReplaceInvalidCharactersInFileName(result, out result);
             //Replace space with dash
             strService.ReplaceSpaceWithDash(result, out result);
             //Remove small words
@@ -26,6 +28,18 @@ namespace helloLearn.Business
                 result = result.Substring(0, config.FileMaxLength);
 
             return result;
+        }
+
+        public string RemoveRedundancyFromPath(string moduleFolder, string fileName)
+        {
+            StringService strService = new StringService();
+            var redundancyString = strService.GetLCSWords(moduleFolder, fileName);
+            var words = redundancyString.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
+
+            //If there are two more words redundancy, then remove from file name
+            if(words.Length>=2)
+                return fileName.Replace(redundancyString, "").Trim('-');
+            return fileName;
         }
     }
 }

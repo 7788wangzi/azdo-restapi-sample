@@ -60,5 +60,34 @@ namespace UnitTestHelloLearn
 
             Assert.AreEqual<string>(expectedLCS, actualResult);
         }
+
+        [TestMethod]
+        public void TestGetLCSWords()
+        {
+            string str1 = "Manage enterprise security in HDInsight";
+            string str2 = "Enterprise security further explore";
+            string expectedLCS = "enterprise-security";
+
+            string actualResult = string.Empty;
+            StringService targetClass = new StringService();
+            actualResult = targetClass.GetLCSWords(str1, str2);
+
+            Assert.AreEqual<string>(expectedLCS, actualResult);
+        }
+
+        [TestMethod]
+        public void TestReplaceInvalidCharactersInFileName()
+        {
+            string inputStr = @"analyze-devops-*continuous/-planning\-:intergration?";
+            string expectedLCS = "analyze-devops-continuous-planning-intergration";
+
+            string actualResult = string.Empty;
+            StringService targetClass = new StringService();
+            targetClass.ReplaceInvalidCharactersInFileName(inputStr, out actualResult);
+
+            Assert.AreEqual<string>(expectedLCS, actualResult);
+        }
+
+
     }
 }

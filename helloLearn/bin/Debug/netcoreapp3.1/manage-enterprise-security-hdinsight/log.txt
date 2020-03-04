@@ -1,7 +1,0 @@
-Module UID: learn.wwl.manage-enterprise-security-hdinsight
-Units: 
-introduction
-describe-hdinsight-security-areas
-implement-network-security
-understand-operating-system-security
-manage-application-middleware-security

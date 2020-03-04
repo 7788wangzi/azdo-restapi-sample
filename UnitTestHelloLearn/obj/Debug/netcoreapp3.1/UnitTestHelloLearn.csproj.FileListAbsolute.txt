@@ -1,8 +1,10 @@
 C:\Files\helloLearn\UnitTestHelloLearn\bin\Debug\netcoreapp3.1\Config\config.json
+C:\Files\helloLearn\UnitTestHelloLearn\bin\Debug\netcoreapp3.1\Config\metadata.md
 C:\Files\helloLearn\UnitTestHelloLearn\bin\Debug\netcoreapp3.1\helloLearn.exe
 C:\Files\helloLearn\UnitTestHelloLearn\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\Files\helloLearn\UnitTestHelloLearn\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 C:\Files\helloLearn\UnitTestHelloLearn\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Files\helloLearn\UnitTestHelloLearn\bin\Debug\netcoreapp3.1\Input.txt
 C:\Files\helloLearn\UnitTestHelloLearn\bin\Debug\netcoreapp3.1\UnitTestHelloLearn.deps.json
 C:\Files\helloLearn\UnitTestHelloLearn\bin\Debug\netcoreapp3.1\UnitTestHelloLearn.runtimeconfig.json
 C:\Files\helloLearn\UnitTestHelloLearn\bin\Debug\netcoreapp3.1\UnitTestHelloLearn.runtimeconfig.dev.json
