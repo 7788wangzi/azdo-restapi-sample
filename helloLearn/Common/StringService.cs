@@ -118,9 +118,10 @@ namespace helloLearn.Common
                             while (c < n)
                             {
                                 lcsWord.Append(words1[s]);
-                                lcsWord.Append("-");
+                                lcsWord.Append("-");                            
+                                
                                 c++;
-                                s += c;
+                                s =i + c; //fixed a bug, when it more than n>2, previously it was s+=c
                             }
                         }
                     }

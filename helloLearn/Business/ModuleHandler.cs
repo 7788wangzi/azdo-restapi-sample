@@ -14,20 +14,22 @@ namespace helloLearn.Business
             ThisModule = new Module();
         }
 
-        public ModuleHandler(string title, params string[] unitTitles)
+        public ModuleHandler(int id, string url, string title, params string[] unitTitles)
         {
             ThisModule = new Module();
+            ThisModule.Id = id;
             ThisModule.Title = title;
+            ThisModule.Url = url;
 
             ThisModule.Units = new List<Unit>();
             for(int i=0; i<unitTitles.Length; i++)
             {
                 ThisModule.Units.Add(
-                    new Unit { Title = unitTitles[i] });
+                    new Unit { Title = unitTitles[i].Trim() });
             }
         }
 
-        public void GenerateModule()
+        public Module GenerateModule()
         {
             if(ThisModule!=null&&ThisModule.Title!=null)
             {
@@ -84,9 +86,13 @@ namespace helloLearn.Business
 
                 //Create metadata file
                 var metadataString = myIO.GetMetadataString();
-                metadataString = String.Format(metadataString, "", ThisModule.ModuleFolder);
+                metadataString = String.Format(metadataString, ThisModule.Id, ThisModule.ModuleFolder);
                 myIO.WriteLog(folderDir + "\\Metadata.md", metadataString);
+
+                return ThisModule;
             }
+
+            return null;
         }
     }
 }

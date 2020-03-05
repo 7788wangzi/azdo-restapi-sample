@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "helloLearn", "helloLearn\helloLearn.csproj", "{4240DF73-568F-4533-8248-63447C77F57D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestHelloLearn", "UnitTestHelloLearn\UnitTestHelloLearn.csproj", "{8990CCA5-FA5D-4A33-9F03-869785216C70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestHelloLearn", "UnitTestHelloLearn\UnitTestHelloLearn.csproj", "{8990CCA5-FA5D-4A33-9F03-869785216C70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
