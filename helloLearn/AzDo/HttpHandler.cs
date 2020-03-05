@@ -49,5 +49,77 @@ namespace helloLearn.AzDo
 
 			}
 		}
+
+		public static async Task<string> CreateWorkItem(string workItemType, string jsonPatchDocument)
+		{
+			try
+			{
+				var personalaccesstoken = "wc7szjys4cb2hctryjaywsx6qzn3qmh4tccewpl5nh52x5adf5oa";
+				using (HttpClient client = new HttpClient())
+				{
+					client.DefaultRequestHeaders.Accept.Add(
+						new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
+						Convert.ToBase64String(
+							System.Text.ASCIIEncoding.ASCII.GetBytes(
+								string.Format("{0}:{1}", "", personalaccesstoken))));
+									
+
+					HttpContent content = new StringContent(jsonPatchDocument, Encoding.UTF8, "application/json-patch+json");
+
+					string url = String.Format(@"https://dev.azure.com/microsoftdigitallearning/courseware/_apis/wit/workitems/${0}?api-version=5.0&validateOnly=false&bypassRules=true", workItemType);
+					
+					using (HttpResponseMessage response = await client.PostAsync(url, content))
+					{
+						response.EnsureSuccessStatusCode();
+						string responseBody = await response.Content.ReadAsStringAsync();
+
+						return responseBody;
+
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				return string.Empty;
+			}
+		}
+
+		public static async Task<string> UpdateWorkItem(int id, string jsonPatchDocument)
+		{
+			try
+			{
+				var personalaccesstoken = "wc7szjys4cb2hctryjaywsx6qzn3qmh4tccewpl5nh52x5adf5oa";
+				using (HttpClient client = new HttpClient())
+				{
+					client.DefaultRequestHeaders.Accept.Add(
+						new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
+						Convert.ToBase64String(
+							System.Text.ASCIIEncoding.ASCII.GetBytes(
+								string.Format("{0}:{1}", "", personalaccesstoken))));
+
+
+					HttpContent content = new StringContent(jsonPatchDocument, Encoding.UTF8, "application/json-patch+json");
+
+					string url = String.Format(@"https://dev.azure.com/microsoftdigitallearning/courseware/_apis/wit/workitems/{0}?api-version=5.0&validateOnly=false&bypassRules=true", id);
+
+					using (HttpResponseMessage response = await client.PatchAsync(url, content))
+					{
+						response.EnsureSuccessStatusCode();
+						string responseBody = await response.Content.ReadAsStringAsync();
+
+						return responseBody;
+
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				return string.Empty;
+			}
+		}
 	}
 }

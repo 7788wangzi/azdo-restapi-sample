@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using helloLearn.Business;
+using helloLearn.Learn;
 
 namespace helloLearn.AzDo
 {
@@ -33,15 +34,16 @@ namespace helloLearn.AzDo
 
 
 							ModuleHandler moduleHandler = new ModuleHandler(id,moduleUrl, moduleTitle, unitTitles);
-							var myModle = moduleHandler.GenerateModule();
+							var myModule = moduleHandler.GenerateModule();
 
+							UpdateModuleWorkItem(myModule);
+							CreateModuleUnits(myModule);
 						}; break;
 				}
 			}
 		}
 
 		
-
 
 		public ResponseWIT ProcessJsonResponse(string jsonInput)
 		{
@@ -67,6 +69,107 @@ namespace helloLearn.AzDo
 				return obj.value[0].url;
 			}
 			return string.Empty;
+		}
+
+		private void UpdateModuleWorkItem(Module myModule)
+		{
+			List<JsonPatch> jsonPatchDocument = new List<JsonPatch>();
+
+			JsonPatch uidPatch = new JsonPatch
+			{
+				op = "add",
+				path = "/fields/Custom.UID",
+				value = $"{myModule.UID}"
+			};
+			jsonPatchDocument.Add(uidPatch);
+
+
+			//Custom.badge
+			JsonPatch badgeUidPatch = new JsonPatch
+			{
+				op = "add",
+				path = "/fields/Custom.badge",
+				value = $"{myModule.UID}.badge"
+			};
+			jsonPatchDocument.Add(badgeUidPatch);
+
+			JsonPatch moduleFolderPatch = new JsonPatch
+			{
+				op = "add",
+				path = "/fields/Custom.TargetFolder",
+				value = $"{myModule.ModuleFolder}"
+			};
+			jsonPatchDocument.Add(moduleFolderPatch);
+			
+			var jsonDocument = JsonSerializer.Serialize(jsonPatchDocument);
+
+			Task<string> task = Task.Run(() => HttpHandler.UpdateWorkItem(myModule.Id, jsonDocument));
+			task.Wait();
+			var result = task.Result;
+			Console.WriteLine("Updated: "+myModule.Id);
+
+		}
+
+		public void CreateModuleUnits(Learn.Module module)
+		{
+			foreach (var unit in module.Units)
+			{
+				CreateUnitWorkItem(unit, module.Url);
+			}
+		}
+		public void CreateUnitWorkItem(Learn.Unit unit, string moduleURL)
+		{
+			List<JsonPatch> jsonPatchDocument = new List<JsonPatch>();			
+
+			JsonPatch titlePatch = new JsonPatch
+			{
+				op = "add",
+				path = "/fields/System.Title",
+				value = $"{unit.Title}"
+			};
+			jsonPatchDocument.Add(titlePatch);
+
+			//Custom.content
+			JsonPatch filePathPatch = new JsonPatch
+			{
+				op = "add",
+				path = "/fields/Custom.content",
+				value = $"{unit.FileName}.md"
+			};
+			jsonPatchDocument.Add(filePathPatch);
+
+			//Custom.UID
+			JsonPatch uidPatch = new JsonPatch
+			{
+				op = "add",
+				path = "/fields/Custom.UID",
+				value = $"{unit.UID}"
+			};
+			jsonPatchDocument.Add(uidPatch);
+
+			JsonPatch relationPatch = new JsonPatch
+			{
+				op = "add",
+				path = "/relations/-",
+				value = new Link
+				{
+					rel = "System.LinkTypes.Hierarchy-Reverse",
+					url = $"{moduleURL}",
+					attributes = new AzDo.Attribute
+					{
+						comment = "Comment for link"
+					}
+				}
+			};
+			jsonPatchDocument.Add(relationPatch);
+			var jsonDocument = JsonSerializer.Serialize(jsonPatchDocument);
+
+			Task<string> task = Task.Run(() => HttpHandler.CreateWorkItem("Unit", jsonDocument));
+			task.Wait();
+			var result = task.Result;
+
+			MyWorkItem myWorkItem = JsonSerializer.Deserialize<MyWorkItem>(result);
+			Console.WriteLine("Created unit: "+myWorkItem.id);
 		}
 		
 	}

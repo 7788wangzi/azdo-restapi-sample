@@ -1,0 +1,54 @@
+{
+  "Id": 9089,
+  "Title": "3-Maintain Azure for SAP workloads-Test",
+  "UID": "learn.wwl.3-maintain-azure-for-sap-workloads-test",
+  "Units": [
+    {
+      "Title": "1-Introduction",
+      "FileName": "1-introduction",
+      "UID": "introduction"
+    },
+    {
+      "Title": "2-Setting up remote management for SAP workloads",
+      "FileName": "2-setting-up-remote-management",
+      "UID": "setting-up-remote-management"
+    },
+    {
+      "Title": "3-Performing backup and restore for SAP workloads",
+      "FileName": "3-performing-backup-restore",
+      "UID": "performing-backup-restore"
+    },
+    {
+      "Title": "4-Networking changes for SAP workloads",
+      "FileName": "4-networking-changes",
+      "UID": "networking-changes"
+    },
+    {
+      "Title": "5-Configuring updates for SAP workloads",
+      "FileName": "5-configuring-updates",
+      "UID": "configuring-updates"
+    },
+    {
+      "Title": "6-Vertical and horizontal scaling for SAP workloads",
+      "FileName": "6-vertical-horizontal-scaling",
+      "UID": "vertical-horizontal-scaling"
+    },
+    {
+      "Title": "7-Defining Disaster Recovery for SAP workloads",
+      "FileName": "7-defining-disaster-recovery",
+      "UID": "defining-disaster-recovery"
+    },
+    {
+      "Title": "8-Knowledge check",
+      "FileName": "8-knowledge-check",
+      "UID": "knowledge-check"
+    },
+    {
+      "Title": "9-Summary",
+      "FileName": "9-summary",
+      "UID": "summary"
+    }
+  ],
+  "ModuleFolder": "3-maintain-azure-for-sap-workloads-test",
+  "Url": "https://dev.azure.com/microsoftdigitallearning/_apis/wit/workItems/9089"
+}
