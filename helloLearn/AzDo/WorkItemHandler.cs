@@ -12,7 +12,12 @@ namespace helloLearn.AzDo
 {
     public class WorkItemHandler
     {
-        
+		static DateTime witMSDate = new DateTime();
+		static string witMSAuthor = string.Empty;
+		static string witMSProd = string.Empty;
+		static string witAreaPath = string.Empty;
+		static string witIterationPath = string.Empty;
+
 
 		public void ProcessWorkItem(int id)
 		{
@@ -24,6 +29,12 @@ namespace helloLearn.AzDo
 			if (witResult != null)
 			{
 				var workItemType = witResult.value[0].fields.WorkItemType;
+				witMSDate = witResult.value[0].fields.TargetReleaseDate;
+				witMSAuthor = witResult.value[0].fields.MS_Author;
+				witMSProd = witResult.value[0].fields.MS_Product;
+				witAreaPath = witResult.value[0].fields.AreaPath;
+				witIterationPath = witResult.value[0].fields.IterationPath;
+
 				switch (workItemType)
 				{
 					case "Module":
@@ -146,6 +157,52 @@ namespace helloLearn.AzDo
 				value = $"{unit.UID}"
 			};
 			jsonPatchDocument.Add(uidPatch);
+
+			//Custom.md_ms_date
+			JsonPatch msDatePatch = new JsonPatch
+			{
+				op = "add",
+				path = "/fields/Custom.md_ms_date",
+				value = $"{witMSDate}"
+			};
+			jsonPatchDocument.Add(msDatePatch);
+
+
+			//Custom.md_ms_author
+			JsonPatch msAuthorPatch = new JsonPatch
+			{
+				op = "add",
+				path = "/fields/Custom.md_ms_author",
+				value = $"{witMSAuthor}"
+			};
+			jsonPatchDocument.Add(msAuthorPatch);
+
+			//Custom.md_ms_prod
+			JsonPatch msProdPatch = new JsonPatch
+			{
+				op = "add",
+				path = "/fields/Custom.md_ms_prod",
+				value = $"{witMSProd}"
+			};
+			jsonPatchDocument.Add(msProdPatch);
+
+			//System.AreaPath
+			JsonPatch areaPathPatch = new JsonPatch
+			{
+				op = "add",
+				path = "/fields/System.AreaPath",
+				value = $"{witAreaPath}"
+			};
+			jsonPatchDocument.Add(areaPathPatch);
+
+			//System.IterationPath
+			JsonPatch iterationPathPatch = new JsonPatch
+			{
+				op = "add",
+				path = "/fields/System.IterationPath",
+				value = $"{witIterationPath}"
+			};
+			jsonPatchDocument.Add(iterationPathPatch);
 
 			JsonPatch relationPatch = new JsonPatch
 			{

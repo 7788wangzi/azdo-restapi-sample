@@ -46,6 +46,15 @@ namespace helloLearn.AzDo
         [JsonPropertyName("Custom.md_ms_date")]
         public DateTime MS_Date { get; set; }
 
+        [JsonPropertyName("Custom.md_ms_prod")]
+        public string MS_Product { get; set; }
+
+        [JsonPropertyName("System.AreaPath")]
+        public string AreaPath { get; set; }
+
+        [JsonPropertyName("System.IterationPath")]
+        public string IterationPath { get; set; }
+
         public string ParseOutlineUnits()
         {
             var inputOutlineString = this.outline_Units;

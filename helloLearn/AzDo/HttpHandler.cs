@@ -26,7 +26,7 @@ namespace helloLearn.AzDo
 							System.Text.ASCIIEncoding.ASCII.GetBytes(
 								string.Format("{0}:{1}", "", personalaccesstoken))));
 
-					string httpUrl = string.Format(@"https://dev.azure.com/microsoftdigitallearning/courseware/_apis/wit/workitems?ids={0}&fields=System.Id,System.Title,System.WorkItemType,Custom.outline_units,Custom.TargetReleaseDate,Custom.gitPath,Custom.md_ms_author,Custom.md_ms_date&api-version=5.0", id);
+					string httpUrl = string.Format(@"https://dev.azure.com/microsoftdigitallearning/courseware/_apis/wit/workitems?ids={0}&fields=System.Id,System.Title,System.WorkItemType,Custom.outline_units,Custom.TargetReleaseDate,Custom.gitPath,Custom.md_ms_author,Custom.md_ms_date,Custom.md_ms_prod,System.AreaPath,System.IterationPath&api-version=5.0", id);
 
 					using (HttpResponseMessage response = await client.GetAsync(httpUrl))
 					{
