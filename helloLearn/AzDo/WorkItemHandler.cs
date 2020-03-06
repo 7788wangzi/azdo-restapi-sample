@@ -35,19 +35,34 @@ namespace helloLearn.AzDo
 				witAreaPath = witResult.value[0].fields.AreaPath;
 				witIterationPath = witResult.value[0].fields.IterationPath;
 
+				var repository = witResult.value[0].fields.Repository;
+
 				switch (workItemType)
 				{
 					case "Module":
 						{
+							Console.WriteLine("This is a Module work item.");
 							var moduleTitle = string.Empty;
 							string[] unitTitles = null;
 							var moduleUrl = GetModuleInformation(witResult, out moduleTitle, out unitTitles);
+							System.Threading.Thread.Sleep(2000);
+							Console.WriteLine("Module title: "+moduleTitle);
+							Console.WriteLine("Unit titles: ");
+							foreach (var u in unitTitles)
+							{
+								Console.WriteLine(u);
+							}
 
-
-							ModuleHandler moduleHandler = new ModuleHandler(id,moduleUrl, moduleTitle, unitTitles);
+							System.Threading.Thread.Sleep(3000);
+							ModuleHandler moduleHandler = new ModuleHandler(id, moduleUrl, repository, moduleTitle, unitTitles);
 							var myModule = moduleHandler.GenerateModule();
 
+							Console.WriteLine("Update module with UID, target folder");
+							System.Threading.Thread.Sleep(2000);
 							UpdateModuleWorkItem(myModule);
+
+							Console.WriteLine("Create unit work items");
+							System.Threading.Thread.Sleep(2000);
 							CreateModuleUnits(myModule);
 						}; break;
 				}

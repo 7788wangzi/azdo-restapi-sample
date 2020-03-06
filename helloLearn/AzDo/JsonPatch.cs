@@ -4,11 +4,6 @@ using System.Text;
 
 namespace helloLearn.AzDo
 {
-    public class JsonPatchDocument
-    {
-        public JsonPatch[] body { get; set; }
-    }
-
     public class JsonPatch
     {
         public string op { get; set; }

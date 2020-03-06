@@ -1,7 +1,7 @@
 ﻿#### RepositoryName	
 ###### RepositoryName
 ```
-RepositoryName:learn-pr 
+RepositoryName:{2} 
 ```
 
 #### BranchName	
@@ -17,5 +17,5 @@ Module workitem: {0}
 
 ###### Enter the Target folder in github
 ```
-Target folder in github: {1}
+Target folder in github: {2}/{1}
 ```

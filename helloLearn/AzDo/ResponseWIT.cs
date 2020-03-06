@@ -55,6 +55,9 @@ namespace helloLearn.AzDo
         [JsonPropertyName("System.IterationPath")]
         public string IterationPath { get; set; }
 
+        [JsonPropertyName("Custom.TargetRepo")]
+        public string Repository { get; set; }
+
         public string ParseOutlineUnits()
         {
             var inputOutlineString = this.outline_Units;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using helloLearn.Learn;
 using helloLearn.Business;
+using System.Text.RegularExpressions;
 
 namespace helloLearn.Business
 {
@@ -14,12 +15,23 @@ namespace helloLearn.Business
             ThisModule = new Module();
         }
 
-        public ModuleHandler(int id, string url, string title, params string[] unitTitles)
+        public ModuleHandler(int id, string url, string repository, string title, params string[] unitTitles)
         {
             ThisModule = new Module();
             ThisModule.Id = id;
             ThisModule.Title = title;
             ThisModule.Url = url;
+            ThisModule.Repository = repository;
+
+            //module with prefix            
+            var match = Regex.Match(title.Trim(), "^\\d{1,}[ ]{0,}-");
+            int prefix = 0;
+            if (Int32.TryParse(match.Value.Trim('-').Trim(), out prefix))
+            {
+                ThisModule.Prefix = prefix;
+                ThisModule.Title = title.Replace(match.Value, "");
+            }
+
 
             ThisModule.Units = new List<Unit>();
             for(int i=0; i<unitTitles.Length; i++)
@@ -37,6 +49,8 @@ namespace helloLearn.Business
                 FileHandler myFileHandler = new FileHandler();
                 ThisModule.ModuleFolder = myFileHandler.ProcessFileNames(ThisModule.Title);
                 ThisModule.UID = "learn.wwl." + ThisModule.ModuleFolder;
+
+                
 
                 if(ThisModule.Units!=null)
                 {
@@ -57,7 +71,13 @@ namespace helloLearn.Business
 
                 //Create files
                 IOCls myIO = new IOCls();
-                var folderDir = myIO.CreateFolder(folderName: ThisModule.ModuleFolder);
+                string folderName = ThisModule.ModuleFolder;
+                //Add prefix to module folder
+                if (ThisModule.Prefix != 0)
+                {
+                    folderName = "M" + ThisModule.Prefix.ToString("D2") + "-" + ThisModule.ModuleFolder;
+                }
+                var folderDir = myIO.CreateFolder(folderName: folderName);
                 //Create includes folder
                 var targetPath = myIO.CreateFolder(folderDir.FullName, "includes");
                 foreach (var unit in ThisModule.Units)
@@ -86,8 +106,15 @@ namespace helloLearn.Business
 
                 //Create metadata file
                 var metadataString = myIO.GetMetadataString();
-                metadataString = String.Format(metadataString, ThisModule.Id, ThisModule.ModuleFolder);
-                myIO.WriteLog(folderDir + "\\Metadata.md", metadataString);
+                metadataString = String.Format(metadataString, ThisModule.Id, ThisModule.ModuleFolder, ThisModule.Repository);
+                string metadataFileName = "Metadata.md";
+
+                //Add prefix to module folder
+                if (ThisModule.Prefix != 0)
+                {
+                    metadataFileName = "M" + ThisModule.Prefix.ToString("D2") + " " + metadataFileName;
+                }
+                myIO.WriteLog(folderDir + $"\\{metadataFileName}", metadataString);
 
                 return ThisModule;
             }

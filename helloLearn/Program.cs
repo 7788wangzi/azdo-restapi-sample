@@ -40,11 +40,15 @@ namespace helloLearn
             //}
             //Console.WriteLine("Press any key to exit.");
 
+            int workItemId = 9089;
+
+            Console.WriteLine("Process work item: "+ workItemId);
+            System.Threading.Thread.Sleep(3000);
             AzDo.WorkItemHandler workItemHandler = new AzDo.WorkItemHandler();
-            workItemHandler.ProcessWorkItem(9089);
+            workItemHandler.ProcessWorkItem(workItemId);
 
-
-            Console.WriteLine("done!");
+            System.Threading.Thread.Sleep(2000);
+            Console.WriteLine("Tasks all done!");
             Console.ReadKey();
         }
     }
