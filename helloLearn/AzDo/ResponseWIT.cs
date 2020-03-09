@@ -18,6 +18,8 @@ namespace helloLearn.AzDo
         public string url { get; set; }
 
         public MyField fields { get; set; }
+
+        public MyRelation[] relations { get; set; }
     }
 
     public class MyField
@@ -70,6 +72,12 @@ namespace helloLearn.AzDo
 
             return inputOutlineString;
         }
+    }
+
+    public class MyRelation
+    {
+        public string rel { get; set; }
+        public string url { get; set; }
     }
 
 }

@@ -41,6 +41,10 @@ namespace helloLearn
             //Console.WriteLine("Press any key to exit.");
 
             int workItemId = 9089;
+            //int workItemId = 1;
+
+            
+
 
             Console.WriteLine("Process work item: "+ workItemId);
             System.Threading.Thread.Sleep(3000);

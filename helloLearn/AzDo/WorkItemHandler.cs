@@ -17,10 +17,18 @@ namespace helloLearn.AzDo
 		static string witMSProd = string.Empty;
 		static string witAreaPath = string.Empty;
 		static string witIterationPath = string.Empty;
+		public static string witPatToken = string.Empty;
+
+		List<int> witCreatdUnits = new List<int>();
 
 
 		public void ProcessWorkItem(int id)
 		{
+			//read personal access token
+			IOCls ioCls = new IOCls();
+			var myConfig = ioCls.GetConfiguration();
+			witPatToken = myConfig.PersonalAccessToken;			
+
 			Task<string> task = Task.Run(() => HttpHandler.GetWorkItemById(id));
 			task.Wait();
 			var result = task.Result;
@@ -61,18 +69,64 @@ namespace helloLearn.AzDo
 							System.Threading.Thread.Sleep(2000);
 							UpdateModuleWorkItem(myModule);
 
+							//delete exisint units
+							Console.WriteLine("Delete existing units");
+							System.Threading.Thread.Sleep(2000);
+							DeleteExistingUnits(id);
+
 							Console.WriteLine("Create unit work items");
 							System.Threading.Thread.Sleep(2000);
-							CreateModuleUnits(myModule);
+							//CreateModuleUnits(myModule);
+							Console.WriteLine("Will delete the unit in 15s...");
+							System.Threading.Thread.Sleep(15000);
+							if(witCreatdUnits!=null&&witCreatdUnits.Count>=0)
+							{
+								//delete unit
+								
+								DeleteModuleUnits(witCreatdUnits);
+							}
+							
 						}; break;
 				}
 			}
 		}
 
-		
+		private void DeleteExistingUnits(int id)
+		{
+			Task<string> task = Task.Run(() => HttpHandler.GetChildsOfModule(id));
+			task.Wait();
+			var result = task.Result;
+			var wit = ProcessJsonResponse(result);
+
+			List<int> moduleUnits = new List<int>();
+			foreach (var relation in wit.value[0].relations)
+			{
+				if(relation.rel== "System.LinkTypes.Hierarchy-Forward")
+				{
+					int lastSlashIndex = relation.url.LastIndexOf(@"/");
+					int childId = Int32.Parse(relation.url.Substring(lastSlashIndex + 1).ToString());					
+					moduleUnits.Add(childId);
+				}
+			}
+
+			DeleteModuleUnits(moduleUnits);
+		}
+
+		private void DeleteModuleUnits(List<int> witCreatdUnits)
+		{
+			foreach (var id in witCreatdUnits)
+			{
+				Task<string> task = Task.Run(() => HttpHandler.DeleteWorkItem(id));
+				task.Wait();
+				var result = task.Result;
+				Console.WriteLine("Deleted unit: "+id);
+			}
+		}
 
 		public ResponseWIT ProcessJsonResponse(string jsonInput)
 		{
+			if (string.IsNullOrEmpty(jsonInput))
+				return null;
 			var obj = JsonSerializer.Deserialize<ResponseWIT>(jsonInput);
 
 			if (obj != null && obj.value.Length >= 1 && obj.value[0] != null)
@@ -242,6 +296,7 @@ namespace helloLearn.AzDo
 
 			MyWorkItem myWorkItem = JsonSerializer.Deserialize<MyWorkItem>(result);
 			Console.WriteLine("Created unit: "+myWorkItem.id);
+			witCreatdUnits.Add(myWorkItem.id);
 		}
 		
 	}

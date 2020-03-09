@@ -8,5 +8,6 @@ namespace helloLearn.Business
     {
         public List<string> SmallWords { get; set; }
         public int FileMaxLength { get; set; }
+        public string PersonalAccessToken { get; set; }
     }
 }
