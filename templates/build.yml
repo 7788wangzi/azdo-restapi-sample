@@ -14,8 +14,8 @@ steps:
     inputs:
       command: 'publish'
       projects: '**/helloLearn.csproj'
-      publishWebProjects: false
-      arguments: '--no-build -c Release -r win10-x64 --self-contained true --configuration ${{parameters.buildConfiguration}} --output $(Build.ArtifactStagingDirectory)/${{parameters.buildConfiguration}}'
+      publishWebProjects: true
+      arguments: '--no-build --configuration ${{parameters.buildConfiguration}} --output $(Build.ArtifactStagingDirectory)/${{parameters.buildConfiguration}}'
       zipAfterPublish: true
 
   - task: DotNetCoreCLI@2
