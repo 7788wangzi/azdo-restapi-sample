@@ -7,13 +7,13 @@ steps:
     inputs:
       command: 'build'
       arguments: '--no-restore --configuration ${{parameters.buildConfiguration}}'
-      projects: '**/*.csproj'
+      projects: '**/helloLearn.csproj'
 
   - task: DotNetCoreCLI@2
     displayName: 'Publish the project - ${{parameters.buildConfiguration}}'
     inputs:
       command: 'publish'
-      projects: '**/*.csproj'
+      projects: '**/helloLearn.csproj'
       publishWebProjects: false
       arguments: '--no-build -c Release -r win10-x64 --self-contained true --configuration ${{parameters.buildConfiguration}} --output $(Build.ArtifactStagingDirectory)/${{parameters.buildConfiguration}}'
       zipAfterPublish: true
@@ -24,4 +24,4 @@ steps:
       command: 'test'
       arguments: '--no-build --configuration ${buildConfiguration}'
       publishTestResults: true
-      projects: '**/UnitTest*.csproj' 
+      projects: '**/UnitTestHelloLearn.csproj' 
