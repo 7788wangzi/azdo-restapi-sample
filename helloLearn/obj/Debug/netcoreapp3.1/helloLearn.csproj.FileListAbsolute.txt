@@ -11,4 +11,3 @@ C:\Files\helloLearn\helloLearn\obj\Debug\netcoreapp3.1\helloLearn.AssemblyInfoIn
 C:\Files\helloLearn\helloLearn\obj\Debug\netcoreapp3.1\helloLearn.AssemblyInfo.cs
 C:\Files\helloLearn\helloLearn\obj\Debug\netcoreapp3.1\helloLearn.dll
 C:\Files\helloLearn\helloLearn\obj\Debug\netcoreapp3.1\helloLearn.pdb
-C:\Files\helloLearn\helloLearn\obj\Debug\netcoreapp3.1\helloLearn.csprojAssemblyReference.cache

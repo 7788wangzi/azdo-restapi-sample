@@ -40,10 +40,20 @@ namespace helloLearn
             //}
             //Console.WriteLine("Press any key to exit.");
 
-            int workItemId = 9089;
-            //int workItemId = 1;
+            //int workItemId = 9089; //module
 
-            
+            //int workItemId = 9285; //LP
+            int workItemId = 1;
+
+            using (StreamReader reader = new StreamReader("input.txt"))
+            {
+                string content = reader.ReadToEnd();
+                Console.WriteLine("Read titles from input.txt successfully...");
+                var parameters = Int32.Parse(content.Trim());
+                workItemId = parameters;
+                
+            }
+            //Console.WriteLine("Press any key to exit.");
 
 
             Console.WriteLine("Process work item: "+ workItemId);

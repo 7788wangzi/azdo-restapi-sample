@@ -72,5 +72,16 @@ namespace helloLearn.Business
             }
             return null;
         }
+
+        public string SerializeLP(LearningPath thisLP)
+        {
+            if (thisLP != null)
+            {
+                JsonSerializerOptions options = new JsonSerializerOptions();
+                options.WriteIndented = true;
+                return JsonSerializer.Serialize<LearningPath>(thisLP, options);
+            }
+            return null;
+        }
     }
 }
