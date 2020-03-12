@@ -70,9 +70,9 @@ namespace helloLearn.AzDo
 							UpdateModuleWorkItemWithUIDsAndTargetFolder(myModule);
 
 							//delete existing units
-							//Console.WriteLine("Delete existing units");
-							//System.Threading.Thread.Sleep(2000);
-							//GetAndDeleteExistingUnitWorkItemForModule(id);
+							Console.WriteLine("Delete existing units");
+							System.Threading.Thread.Sleep(2000);
+							GetAndDeleteExistingUnitWorkItemForModule(id);
 
 							Console.WriteLine("Create unit work items");
 							System.Threading.Thread.Sleep(2000);
@@ -80,12 +80,12 @@ namespace helloLearn.AzDo
 
 							//Console.WriteLine("Will delete the unit in 15s...");
 							//System.Threading.Thread.Sleep(15000);
-							//if(witCreatdUnits!=null&&witCreatdUnits.Count>=0)
+							//if (witCreatdUnits != null && witCreatdUnits.Count >= 0)
 							//{
 							//	//delete unit								
 							//	DeleteUnitWorkItems(witCreatdUnits);
 							//}
-							
+
 						}; break;
 
 					case "Learning Path":
@@ -111,6 +111,7 @@ namespace helloLearn.AzDo
 							Console.WriteLine("Create module work items");
 							System.Threading.Thread.Sleep(2000);
 							CreateLPModules(myLP);
+
 							//Console.WriteLine("Will delete the module in 15s...");
 							//System.Threading.Thread.Sleep(15000);
 							//if (witCreatdUnits != null && witCreatdUnits.Count >= 0)
@@ -242,8 +243,8 @@ namespace helloLearn.AzDo
 			JsonPatch badgeUidPatch = new JsonPatch
 			{
 				op = "add",
-				path = "/fields/Custom.badge",
-				value = $"{myLP.UID}.badge"
+				path = "/fields/Custom.trophy",
+				value = $"{myLP.UID}.trophy"
 			};
 			jsonPatchDocument.Add(badgeUidPatch);
 
@@ -288,7 +289,12 @@ namespace helloLearn.AzDo
 			{
 				moduleTitle = obj.value[0].fields.Title;
 
-				unitTitles = obj.value[0].fields.ParseOutlineUnits().Split(new string[] { "-", "\n", "*" }, StringSplitOptions.RemoveEmptyEntries);
+				unitTitles = obj.value[0].fields.ParseOutlineUnits().Split(new string[] { "\n", "*" }, StringSplitOptions.RemoveEmptyEntries); // only support * as - could be used in title
+
+				for(int i=0; i<unitTitles.Length; i++)
+				{
+					unitTitles[i] = unitTitles[i].Trim('-').Trim('*').Trim();
+				}
 
 				return obj.value[0].url;
 			}

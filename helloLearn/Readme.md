@@ -2,4 +2,5 @@
 ## Get your own PAT for the microsoftdigitallearning/courseware
 ## Put it in the Config/config.json
 ## Known issue
-The sub items title could not contain hypen.
+In Learning path or Module outline_units filed.
+- Use * for list

@@ -22,16 +22,19 @@ namespace helloLearn.Business
             ThisLP.Url = lpUrl;
             ThisLP.TargetFolder = myFileHandler.ProcessFileNames(lpTitle);
             ThisLP.Modules = new List<Module>();
-            ThisLP.UID = "learn.wwl." + ThisLP.UID;
+            ThisLP.UID = "learn.wwl." + ThisLP.TargetFolder;
+            int prefix = 1;
             foreach (var module in moduleTitles)
             {
 
                 ThisLP.Modules.Add(new Module()
                 {
-                    Title = module,
-                    ModuleFolder = myFileHandler.ProcessFileNames(module)
+                    Title = $"{prefix}-"+module,
+                    ModuleFolder = myFileHandler.ProcessFileNames(module),
+                    Prefix = prefix
 
                 });
+                prefix++;
             }
         }
 

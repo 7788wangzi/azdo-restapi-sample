@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace helloLearn.Learn
 {
@@ -12,6 +13,7 @@ namespace helloLearn.Learn
         public List<Unit> Units { get; set; }
         public string ModuleFolder { get; set; }
         public string Url { get; set; }
+        [JsonIgnore]
         public int Prefix { get; set; }
         public string Repository { get; set; }
     }

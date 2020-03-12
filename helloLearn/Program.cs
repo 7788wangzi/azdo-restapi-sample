@@ -49,8 +49,15 @@ namespace helloLearn
             {
                 string content = reader.ReadToEnd();
                 Console.WriteLine("Read titles from input.txt successfully...");
-                var parameters = Int32.Parse(content.Trim());
-                workItemId = parameters;
+                try
+                {
+                    var parameters = Int32.Parse(content.Trim());
+                    workItemId = parameters;
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
                 
             }
             //Console.WriteLine("Press any key to exit.");
