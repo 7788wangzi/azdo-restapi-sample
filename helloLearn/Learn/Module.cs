@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace helloLearn.Learn
 {
-    public class Module:IWorkItem
+    public class Module
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -16,13 +16,5 @@ namespace helloLearn.Learn
         [JsonIgnore]
         public int Prefix { get; set; }
         public string Repository { get; set; }
-        public string WorkItemType { get; set; }
-        public DateTime MsDate { get; set; }
-        public string MsAuthor { get; set; }
-        public string MsProduct { get; set; }
-        public string AreaPath { get; set; }
-        public string IteractionPath { get; set; }
-        public string OutlineStructure { get; set; }
-        public string GitPath { get; set; }
     }
 }
