@@ -1,6 +1,3 @@
-[![Build Status](https://dev.azure.com/LearningIsEverything/ado-pipeline/_apis/build/status/helloLearn?branchName=master)](https://dev.azure.com/LearningIsEverything/ado-pipeline/_build/latest?definitionId=2&branchName=master)
-
-
 ## Processing strings
 In this project, there are sample code of processing string so that the generated string result could be used as part of a path, the string processing  includes:
 + Lower case the strings
