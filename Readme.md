@@ -1,4 +1,4 @@
-## Processing strings
+## Processing strings 
 In this project, there are sample code of processing string so that the generated string result could be used as part of a path, the string processing  includes:
 + Lower case the strings
 + Seprate the string with hyphen
